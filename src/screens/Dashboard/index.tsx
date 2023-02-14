@@ -107,7 +107,7 @@ export default function Dashboard() {
 
         <TransactionList
           data={data}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <TransactionCard data={item} />}
         />
       </Transactions>

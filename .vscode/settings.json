@@ -1,2 +1,14 @@
 {
+  "explorer.compactFolders": false,
+  "workbench.iconTheme": "icons",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "colorize.languages": [
+    "javascript",
+    "typescript"
+  ]
 }

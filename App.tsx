@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ThemeProvider } from 'styled-components';
+import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
 import {
   Poppins_400Regular,
@@ -9,10 +10,10 @@ import {
 
 import theme from './src/global/styles/theme';
 
-import Dashboard from './src/screens/Dashboard';
 import * as SplashScreen from 'expo-splash-screen';
-import { View } from 'react-native';
+import { ThemeProvider } from 'styled-components';
 import * as Font from 'expo-font';
+import { AppRoutes } from './src/routes/app.routes';
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -49,7 +50,9 @@ export default function App() {
   return (
     <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
-        <Dashboard />
+        <NavigationContainer>
+          <AppRoutes />
+        </NavigationContainer>
       </ThemeProvider>
     </View>
   );
