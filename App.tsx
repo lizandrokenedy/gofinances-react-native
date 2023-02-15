@@ -1,5 +1,8 @@
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
+
 import React, { useCallback, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
 import {
@@ -50,6 +53,7 @@ export default function App() {
   return (
     <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
+        <StatusBar barStyle="light-content" />
         <NavigationContainer>
           <AppRoutes />
         </NavigationContainer>
