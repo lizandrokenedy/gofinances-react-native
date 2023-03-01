@@ -1,9 +1,9 @@
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
+import 'react-native-gesture-handler';
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { StatusBar, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 
 import {
   Poppins_400Regular,
@@ -16,10 +16,12 @@ import theme from './src/global/styles/theme';
 import * as SplashScreen from 'expo-splash-screen';
 import { ThemeProvider } from 'styled-components';
 import * as Font from 'expo-font';
-import { AppRoutes } from './src/routes/app.routes';
+import { AuthProvider, useAuth } from './src/hooks/auth';
+import Routes from './src/routes';
 
 export default function App() {
-  const [appIsReady, setAppIsReady] = useState(false);
+  const [appIsLoading, setAppIsLoading] = useState(true);
+  const { userStorageLoading } = useAuth();
 
   useEffect(() => {
     async function prepare() {
@@ -30,10 +32,12 @@ export default function App() {
           Poppins_500Medium,
           Poppins_700Bold,
         });
+
+        
       } catch (e) {
         console.warn(e);
       } finally {
-        setAppIsReady(true);
+        setAppIsLoading(false);
       }
     }
 
@@ -41,12 +45,12 @@ export default function App() {
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
+    if (!appIsLoading && !userStorageLoading) {
       await SplashScreen.hideAsync();
     }
-  }, [appIsReady]);
+  }, [appIsLoading, userStorageLoading]);
 
-  if (!appIsReady) {
+  if (appIsLoading) {
     return null;
   }
 
@@ -54,9 +58,9 @@ export default function App() {
     <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
         <StatusBar barStyle="light-content" />
-        <NavigationContainer>
-          <AppRoutes />
-        </NavigationContainer>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </ThemeProvider>
     </View>
   );
